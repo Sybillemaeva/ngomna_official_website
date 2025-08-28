@@ -147,6 +147,7 @@ const Screenshots = () => {
             {/* Enhanced Text Area with Glass Morphism */}
             <motion.div 
               className="carousel-text-area"
+              style={{ display: 'block' }}
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}

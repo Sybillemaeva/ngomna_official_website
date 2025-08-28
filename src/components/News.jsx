@@ -1,22 +1,36 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { Calendar, ArrowRight, Zap, Shield, Users, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import AnimatedSection from './AnimatedSection';
+import { useNavigate } from 'react-router-dom';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 
 const News = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   
   const newsItems = [
     {
       id: 1,
-      title: t('news.article1.title'),
-      excerpt: t('news.article1.excerpt'),
+      title: "GOV IA : UNE RÉVOLUTION POUR L'ADMINISTRATION PUBLIQUE CAMEROUNAISE",
+      excerpt: "Découvrez comment l'intelligence artificielle transforme les services publics camerounais avec des innovations révolutionnaires.",
       date: "2025-01-15",
-      category: t('news.article1.category'),
+      category: "Innovation",
       icon: <Zap className="w-5 h-5" />,
-      image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600",
-      featured: true
+      images: [
+        "/GOV AI IMAGE 1.jpg",
+        "/GOV AI IMAGE 2.jpg", 
+        "/GOV AI IMAGE 3.jpg"
+      ],
+      featured: true,
+      link: "https://impactechosnews.com/sago-2025-le-ministere-des-finances-expose-ses-innovations/"
     },
     {
       id: 2,
@@ -108,13 +122,34 @@ const News = () => {
             >
               <div className="lg:flex">
                 <div className="lg:w-1/2 relative overflow-hidden">
-                  <motion.img
-                    src={newsItems[0].image}
-                    alt={newsItems[0].title}
-                    className="w-full h-48 sm:h-64 lg:h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  />
+                  <div className="w-full h-48 sm:h-64 lg:h-full">
+                    <Swiper
+                      modules={[Autoplay, Pagination]}
+                      autoplay={{
+                        delay: 5000,
+                        disableOnInteraction: false,
+                      }}
+                      pagination={{
+                        clickable: true,
+                        bulletClass: 'swiper-pagination-bullet news-bullet',
+                        bulletActiveClass: 'swiper-pagination-bullet-active news-bullet-active'
+                      }}
+                      className="w-full h-full"
+                      loop={true}
+                    >
+                      {newsItems[0].images.map((image, index) => (
+                        <SwiperSlide key={index}>
+                          <motion.img
+                            src={image}
+                            alt={`${newsItems[0].title} - Image ${index + 1}`}
+                            className="w-full h-full object-cover"
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
                   <motion.div 
                     className="absolute top-4 left-4"
                     initial={{ scale: 0, opacity: 0 }}
@@ -292,6 +327,7 @@ const News = () => {
         {/* View All News Button */}
         <AnimatedSection className="text-center mt-12" delay={0.6}>
           <motion.button 
+            onClick={() => navigate('/news')}
             className="group bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 mx-auto"
             whileHover={{ 
               scale: 1.05,
@@ -312,6 +348,21 @@ const News = () => {
       </div>
       
       <style jsx>{`
+        .news-bullet {
+          background: rgba(34, 197, 94, 0.3) !important;
+          opacity: 1 !important;
+          width: 10px !important;
+          height: 10px !important;
+          margin: 0 4px !important;
+          transition: all 0.3s ease !important;
+        }
+
+        .news-bullet-active {
+          background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+          transform: scale(1.2) !important;
+          box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4) !important;
+        }
+
         @media (max-width: 639px) {
           .carousel-container {
             padding: 20px 16px;

@@ -19,62 +19,62 @@ const Comments = () => {
   const comments = [
     {
       id: 1,
-      name: t('comments.user1.name'),
-      username: "@sarahc_tech",
+      name: "Vladimir Cruise",
+      username: "@vladimir_cruise",
       avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: t('comments.user1.comment'),
-      timeAgo: "2 hours ago",
+      comment: "Cette application est très utile pour les usagers car elle facilite l'accès à son bulletin de solde peu importe l'endroit où on se trouve et empêche ainsi de se faire extorquer 1000F à l'extérieur du MINFI.",
+      timeAgo: "14 juillet 2025",
       verified: true
     },
     {
       id: 2,
-      name: t('comments.user2.name'),
-      username: "@marcus_dev",
+      name: "Freddy Djilo",
+      username: "@freddy_djilo",
       avatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: t('comments.user2.comment'),
-      timeAgo: "5 hours ago",
+      comment: "Bonjour, chers développeurs. Votre application est une solution salvatrice pour les utilisateurs. Nous (je) la recommandons dès que nous en avons l'occasion.",
+      timeAgo: "30 mars 2024",
       verified: true
     },
     {
       id: 3,
-      name: t('comments.user3.name'),
-      username: "@emily_creates",
+      name: "Carmelo Megha",
+      username: "@carmelo_megha",
       avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: t('comments.user3.comment'),
-      timeAgo: "1 day ago",
+      comment: "C'est appli est là bienvenue dans notre pays. Tout en espérant qu'avec les mises à jour futures, les autres fonctionnalités seront disponibles.",
+      timeAgo: "24 août 2023",
       verified: false
     },
     {
       id: 4,
-      name: t('comments.user4.name'),
-      username: "@davidk_mobile",
+      name: "Patou Ngoutane",
+      username: "@patou_ngoutane",
       avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: t('comments.user4.comment'),
-      timeAgo: "1 day ago",
+      comment: "Bonjour cher ngomna votre application est salvatrice.",
+      timeAgo: "6 janvier 2024",
       verified: true
     },
     {
       id: 5,
-      name: t('comments.user5.name'),
-      username: "@lisa_reviews",
+      name: "Kris M",
+      username: "@kris_m",
       avatar: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: t('comments.user5.comment'),
-      timeAgo: "2 days ago",
+      comment: "Je la recommande vivement ! Les mises à jour fonctionnent maintenant !",
+      timeAgo: "5 août 2024",
       verified: false
     },
     {
       id: 6,
-      name: t('comments.user6.name'),
-      username: "@alexj_tech",
+      name: "Abraham Nindjio",
+      username: "@abraham_nindjio",
       avatar: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: t('comments.user6.comment'),
-      timeAgo: "3 days ago",
+      comment: "Salutations. Je m'adresse aux concepteurs. Je comprends le bien fondé de votre stratégie de sécurité qui est de ne permettre qu'une session par compte.",
+      timeAgo: "25 janvier 2024",
       verified: false
     }
   ];
@@ -141,7 +141,9 @@ const Comments = () => {
               {comments.map((comment) => (
                 <SwiperSlide key={comment.id} style={{ width: '350px', height: 'auto' }}>
                   <motion.div
+                    onClick={() => window.open('https://play.google.com/store/apps/details?id=cm.cenadi.ngomna&hl=fr', '_blank')}
                     className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 h-full relative overflow-hidden"
+                    style={{ cursor: 'pointer' }}
                     whileHover={{ 
                       scale: 1.02,
                       boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"

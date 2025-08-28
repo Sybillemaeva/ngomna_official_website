@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
+import NewsPage from './pages/NewsPage';
 import Payslips from './pages/PayslipsPage';
 import Information from './pages/InformationPage';
 import Notifications from './pages/NotificationsPage';
@@ -19,6 +20,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/news" element={<NewsPage />} />
         <Route path="/payslips" element={<Payslips />} />
         <Route path="/information" element={<Information />} />
         <Route path="/notifications" element={<Notifications />} />

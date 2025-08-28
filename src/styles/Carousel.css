@@ -433,6 +433,12 @@
   }
 }
 
+@media (max-width: 767px) {
+  .carousel-text-area {
+    display: none !important;
+  }
+}
+
 @media (max-width: 639px) {
   .carousel-container {
     padding: 20px 16px;
@@ -440,7 +446,7 @@
   }
   
   .carousel-text-area {
-    display: block !important;
+    display: none !important;
   }
   
   .description {
