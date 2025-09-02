@@ -14,7 +14,7 @@ const Hero = () => {
       {/* Animated Phone */}
       <motion.div
         className="absolute right-4 sm:right-6 md:right-8 lg:right-10 xl:right-16 2xl:right-20 
-                   top-20 sm:top-24 md:top-28 lg:top-32 xl:top-28 2xl:top-24
+                   top-10 sm:top-12 md:top-14 lg:top-16 xl:top-14 2xl:top-12
                    w-[180px] h-[360px] 
                    sm:w-[200px] sm:h-[400px] 
                    md:w-[220px] md:h-[440px] 
