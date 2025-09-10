@@ -1,14 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import AnimatedSection from './AnimatedSection';
+import homeService from '../services/homeService';
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState(new Set());
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
+  const [faqs, setFaqs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const faqs = [
+  useEffect(() => {
+    const fetchFaqData = async () => {
+      try {
+        setLoading(true);
+        const response = await homeService.getFaqData(currentLanguage);
+        setFaqs(response.data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching FAQ data:', err);
+        setError('Failed to load FAQ');
+        // Fallback to default FAQ data
+        setFaqs(fallbackFaqs);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFaqData();
+  }, [currentLanguage]);
+
+  // Fallback FAQ data
+  const fallbackFaqs = [
     {
       id: 1,
       question: t('faq.q1'),
@@ -47,6 +72,18 @@ const FAQ = () => {
       return newSet;
     });
   };
+
+  if (loading) {
+    return (
+      <section id="faq" className="py-12 sm:py-16 lg:py-20 bg-indigo-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="faq" className="py-12 sm:py-16 lg:py-20 bg-indigo-50">

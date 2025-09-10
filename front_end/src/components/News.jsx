@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -6,6 +6,7 @@ import { Calendar, ArrowRight, Zap, Shield, Users, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import AnimatedSection from './AnimatedSection';
 import { useNavigate } from 'react-router-dom';
+import homeService from '../services/homeService';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -13,10 +14,46 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
 const News = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const navigate = useNavigate();
-  
-  const newsItems = [
+  const [newsItems, setNewsItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Icon mapping
+  const iconMap = {
+    Zap: <Zap className="w-5 h-5" />,
+    Shield: <Shield className="w-5 h-5" />,
+    Users: <Users className="w-5 h-5" />,
+    Star: <Star className="w-5 h-5" />
+  };
+
+  useEffect(() => {
+    const fetchNewsArticles = async () => {
+      try {
+        setLoading(true);
+        const response = await homeService.getNewsArticles(currentLanguage);
+        const articlesWithIcons = response.data.map(article => ({
+          ...article,
+          icon: iconMap[article.icon] || <Zap className="w-5 h-5" />
+        }));
+        setNewsItems(articlesWithIcons);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching news articles:', err);
+        setError('Failed to load news');
+        // Fallback to default news items
+        setNewsItems(defaultNewsItems);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNewsArticles();
+  }, [currentLanguage]);
+
+  // Default fallback news items
+  const defaultNewsItems = [
     {
       id: 1,
       title: "GOV IA : UNE RÉVOLUTION POUR L'ADMINISTRATION PUBLIQUE CAMEROUNAISE",
@@ -60,6 +97,18 @@ const News = () => {
       image: "https://images.pexels.com/photos/1068523/pexels-photo-1068523.jpeg?auto=compress&cs=tinysrgb&w=600"
     }
   ];
+
+  if (loading) {
+    return (
+      <section id="news" className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const getCategoryColor = (category) => {
     switch (category) {

@@ -11,35 +11,35 @@ const NotificationsPage = () => {
   const features = [
     {
       icon: <Bell className="w-8 h-8" />,
-      title: "Real-time Alerts",
-      description: "Receive instant notifications for important updates and announcements.",
+      title: t('notifications.realtime_title'),
+      description: t('notifications.realtime_desc'),
       color: "from-yellow-500 to-yellow-600"
     },
     {
       icon: <Filter className="w-8 h-8" />,
-      title: "Smart Filtering",
-      description: "Customize notification preferences and filter by priority and category.",
+      title: t('notifications.filtering_title'),
+      description: t('notifications.filtering_desc'),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Archive className="w-8 h-8" />,
-      title: "Notification History",
-      description: "Access your complete notification history with search and organization tools.",
+      title: t('notifications.history_title'),
+      description: t('notifications.history_desc'),
       color: "from-purple-500 to-purple-600"
     },
     {
       icon: <Settings className="w-8 h-8" />,
-      title: "Custom Settings",
-      description: "Personalize your notification experience with granular control options.",
+      title: t('notifications.settings_title'),
+      description: t('notifications.settings_desc'),
       color: "from-green-500 to-green-600"
     }
   ];
 
   const notificationTypes = [
-    { icon: <AlertCircle className="text-red-500" />, title: "Urgent Alerts", description: "Critical updates requiring immediate attention" },
-    { icon: <Info className="text-blue-500" />, title: "Information Updates", description: "General information and announcements" },
-    { icon: <CheckCircle className="text-green-500" />, title: "Status Updates", description: "Updates on your requests and applications" },
-    { icon: <Smartphone className="text-purple-500" />, title: "System Notifications", description: "App updates and system maintenance alerts" }
+    { icon: <AlertCircle className="text-red-500" />, title: t('notifications.urgent_title'), description: t('notifications.urgent_desc') },
+    { icon: <Info className="text-blue-500" />, title: t('notifications.info_title'), description: t('notifications.info_desc') },
+    { icon: <CheckCircle className="text-green-500" />, title: t('notifications.status_title'), description: t('notifications.status_desc') },
+    { icon: <Smartphone className="text-purple-500" />, title: t('notifications.system_title'), description: t('notifications.system_desc') }
   ];
 
   return (
@@ -62,12 +62,11 @@ const NotificationsPage = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Smart Notifications
+              {t('notifications.title')}
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Stay informed with intelligent notifications that keep you updated on what matters most. 
-              Never miss important updates with our smart notification system.
+              {t('notifications.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,7 +75,7 @@ const NotificationsPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Manage Notifications
+                {t('notifications.manage_btn')}
               </motion.button>
               
               <motion.button
@@ -84,7 +83,7 @@ const NotificationsPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Customize Settings
+                {t('notifications.customize_btn')}
               </motion.button>
             </div>
           </motion.div>
@@ -102,10 +101,10 @@ const NotificationsPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Notification Features
+              {t('notifications.features_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Advanced notification management tools to keep you informed and organized
+              {t('notifications.features_subtitle')}
             </p>
           </motion.div>
 
@@ -148,10 +147,10 @@ const NotificationsPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Types of Notifications
+              {t('notifications.types_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Different notification categories to keep you informed about various aspects
+              {t('notifications.types_subtitle')}
             </p>
           </motion.div>
 
@@ -191,10 +190,10 @@ const NotificationsPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Never Miss Important Updates
+              {t('notifications.cta_title')}
             </h2>
             <p className="text-xl text-yellow-100 mb-8">
-              Enable smart notifications and stay informed about everything that matters
+              {t('notifications.cta_subtitle')}
             </p>
             
             <motion.button
@@ -202,7 +201,7 @@ const NotificationsPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              Set Up Notifications
+              {t('notifications.setup_btn')}
             </motion.button>
           </motion.div>
         </div>

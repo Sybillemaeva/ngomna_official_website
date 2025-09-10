@@ -11,35 +11,35 @@ const MessagingPage = () => {
   const features = [
     {
       icon: <Send className="w-8 h-8" />,
-      title: "Instant Messaging",
-      description: "Send and receive messages instantly with real-time delivery confirmation.",
+      title: t('messaging.encryption_title'),
+      description: t('messaging.encryption_desc'),
       color: "from-green-500 to-green-600"
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: "Group Conversations",
-      description: "Create and manage group conversations for team collaboration.",
+      title: t('messaging.groups_title'),
+      description: t('messaging.groups_desc'),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: "Secure Communication",
-      description: "End-to-end encryption ensures your conversations remain private and secure.",
+      title: t('messaging.files_title'),
+      description: t('messaging.files_desc'),
       color: "from-red-500 to-red-600"
     },
     {
       icon: <Archive className="w-8 h-8" />,
-      title: "Message History",
-      description: "Access your complete message history with powerful search capabilities.",
+      title: t('messaging.archive_title'),
+      description: t('messaging.archive_desc'),
       color: "from-purple-500 to-purple-600"
     }
   ];
 
   const messagingFeatures = [
-    { icon: <Zap />, title: "Real-time Delivery", description: "Messages delivered instantly with read receipts" },
-    { icon: <Search />, title: "Smart Search", description: "Find any message quickly with intelligent search" },
-    { icon: <Settings />, title: "Custom Settings", description: "Personalize your messaging experience" },
-    { icon: <Shield />, title: "Privacy Controls", description: "Advanced privacy and security settings" }
+    { icon: <Zap />, title: t('messaging.verified_title'), description: t('messaging.verified_desc') },
+    { icon: <Search />, title: t('messaging.audit_title'), description: t('messaging.audit_desc') },
+    { icon: <Settings />, title: t('messaging.offline_title'), description: t('messaging.offline_desc') },
+    { icon: <Shield />, title: t('messaging.multilang_title'), description: t('messaging.multilang_desc') }
   ];
 
   return (
@@ -62,12 +62,11 @@ const MessagingPage = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Secure Messaging
+              {t('messaging.title')}
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Connect with government services and officials through our secure messaging platform. 
-              Fast, reliable, and completely private communication at your fingertips.
+              {t('messaging.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,7 +75,7 @@ const MessagingPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Start Messaging
+                {t('messaging.start_btn')}
               </motion.button>
               
               <motion.button
@@ -84,7 +83,7 @@ const MessagingPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                View Conversations
+                {t('messaging.contacts_btn')}
               </motion.button>
             </div>
           </motion.div>
@@ -102,10 +101,10 @@ const MessagingPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Messaging Features
+              {t('messaging.features_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Advanced messaging capabilities designed for secure government communication
+              {t('messaging.features_subtitle')}
             </p>
           </motion.div>
 
@@ -148,10 +147,10 @@ const MessagingPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Advanced Capabilities
+              {t('messaging.benefits_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Enhanced features for a superior messaging experience
+              {t('messaging.benefits_subtitle')}
             </p>
           </motion.div>
 
@@ -191,10 +190,10 @@ const MessagingPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Start Secure Communication
+              {t('messaging.cta_title')}
             </h2>
             <p className="text-xl text-green-100 mb-8">
-              Connect with government services through our encrypted messaging platform
+              {t('messaging.cta_subtitle')}
             </p>
             
             <motion.button
@@ -202,7 +201,7 @@ const MessagingPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              Open Messaging App
+              {t('messaging.start_now')}
             </motion.button>
           </motion.div>
         </div>

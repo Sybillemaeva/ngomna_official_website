@@ -11,35 +11,35 @@ const SecurityPage = () => {
   const features = [
     {
       icon: <Lock className="w-8 h-8" />,
-      title: "End-to-End Encryption",
-      description: "Military-grade encryption protects all your data and communications.",
+      title: t('security.encryption_title'),
+      description: t('security.encryption_desc'),
       color: "from-red-500 to-red-600"
     },
     {
       icon: <Fingerprint className="w-8 h-8" />,
-      title: "Biometric Authentication",
-      description: "Secure access using fingerprint and facial recognition technology.",
+      title: t('security.biometric_title'),
+      description: t('security.biometric_desc'),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Eye className="w-8 h-8" />,
-      title: "Privacy Controls",
-      description: "Granular privacy settings to control who can access your information.",
+      title: t('security.privacy_title'),
+      description: t('security.privacy_desc'),
       color: "from-green-500 to-green-600"
     },
     {
       icon: <AlertTriangle className="w-8 h-8" />,
-      title: "Security Alerts",
-      description: "Real-time notifications about security events and potential threats.",
+      title: t('security.alerts_title'),
+      description: t('security.alerts_desc'),
       color: "from-orange-500 to-orange-600"
     }
   ];
 
   const securityFeatures = [
-    { icon: <Key />, title: "Multi-Factor Authentication", description: "Additional security layers for account protection" },
-    { icon: <CheckCircle />, title: "Security Audits", description: "Regular security assessments and vulnerability checks" },
-    { icon: <Settings />, title: "Security Settings", description: "Customizable security preferences and controls" },
-    { icon: <Shield />, title: "Data Protection", description: "Comprehensive data protection and backup systems" }
+    { icon: <Key />, title: t('security.mfa_title'), description: t('security.mfa_desc') },
+    { icon: <CheckCircle />, title: t('security.audits_title'), description: t('security.audits_desc') },
+    { icon: <Settings />, title: t('security.settings_title'), description: t('security.settings_desc') },
+    { icon: <Shield />, title: t('security.data_protection_title'), description: t('security.data_protection_desc') }
   ];
 
   return (
@@ -62,12 +62,11 @@ const SecurityPage = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Advanced Security
+              {t('security.title')}
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Your security is our top priority. Experience military-grade protection with 
-              advanced encryption, biometric authentication, and comprehensive privacy controls.
+              {t('security.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,7 +75,7 @@ const SecurityPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Security Dashboard
+                {t('security.dashboard_btn')}
               </motion.button>
               
               <motion.button
@@ -84,7 +83,7 @@ const SecurityPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Security Settings
+                {t('security.settings_btn')}
               </motion.button>
             </div>
           </motion.div>
@@ -102,10 +101,10 @@ const SecurityPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Security Features
+              {t('security.features_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Comprehensive security measures to protect your data and privacy
+              {t('security.features_subtitle')}
             </p>
           </motion.div>
 
@@ -148,10 +147,10 @@ const SecurityPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Advanced Protection
+              {t('security.advanced_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Additional security layers for comprehensive protection
+              {t('security.advanced_subtitle')}
             </p>
           </motion.div>
 
@@ -191,10 +190,10 @@ const SecurityPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Secure Your Digital Life
+              {t('security.cta_title')}
             </h2>
             <p className="text-xl text-red-100 mb-8">
-              Enable advanced security features and protect your data with military-grade encryption
+              {t('security.cta_subtitle')}
             </p>
             
             <motion.button
@@ -202,7 +201,7 @@ const SecurityPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              Activate Security Features
+              {t('security.activate_btn')}
             </motion.button>
           </motion.div>
         </div>

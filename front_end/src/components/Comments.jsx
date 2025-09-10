@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Star, Quote } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import AnimatedSection from './AnimatedSection';
+import homeService from '../services/homeService';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -14,66 +15,90 @@ import 'swiper/css/pagination';
 import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 
 const Comments = () => {
-  const { t } = useLanguage();
-  
-  const comments = [
+  const { t, currentLanguage } = useLanguage();
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        setLoading(true);
+        const response = await homeService.getTestimonials(currentLanguage);
+        setComments(response.data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching testimonials:', err);
+        setError('Failed to load testimonials');
+        // Fallback to default testimonials
+        setComments(fallbackComments);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, [currentLanguage]);
+
+  // Fallback testimonials data
+  const fallbackComments = [
     {
       id: 1,
-      name: "Vladimir Cruise",
+      name: t('comments.user1.name'),
       username: "@vladimir_cruise",
       avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: "Cette application est très utile pour les usagers car elle facilite l'accès à son bulletin de solde peu importe l'endroit où on se trouve et empêche ainsi de se faire extorquer 1000F à l'extérieur du MINFI.",
+      comment: t('comments.user1.comment'),
       timeAgo: "14 juillet 2025",
       verified: true
     },
     {
       id: 2,
-      name: "Freddy Djilo",
+      name: t('comments.user2.name'),
       username: "@freddy_djilo",
       avatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: "Bonjour, chers développeurs. Votre application est une solution salvatrice pour les utilisateurs. Nous (je) la recommandons dès que nous en avons l'occasion.",
+      comment: t('comments.user2.comment'),
       timeAgo: "30 mars 2024",
       verified: true
     },
     {
       id: 3,
-      name: "Carmelo Megha",
+      name: t('comments.user3.name'),
       username: "@carmelo_megha",
       avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: "C'est appli est là bienvenue dans notre pays. Tout en espérant qu'avec les mises à jour futures, les autres fonctionnalités seront disponibles.",
+      comment: t('comments.user3.comment'),
       timeAgo: "24 août 2023",
       verified: false
     },
     {
       id: 4,
-      name: "Patou Ngoutane",
+      name: t('comments.user4.name'),
       username: "@patou_ngoutane",
       avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: "Bonjour cher ngomna votre application est salvatrice.",
+      comment: t('comments.user4.comment'),
       timeAgo: "6 janvier 2024",
       verified: true
     },
     {
       id: 5,
-      name: "Kris M",
+      name: t('comments.user5.name'),
       username: "@kris_m",
       avatar: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: "Je la recommande vivement ! Les mises à jour fonctionnent maintenant !",
+      comment: t('comments.user5.comment'),
       timeAgo: "5 août 2024",
       verified: false
     },
     {
       id: 6,
-      name: "Abraham Nindjio",
+      name: t('comments.user6.name'),
       username: "@abraham_nindjio",
-      avatar: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=150",
+      avatar: "https://images.pexels.com/photos/1681686/pexels-photo-1681686.jpeg?auto=compress&cs=tinysrgb&w=150",
       rating: 5,
-      comment: "Salutations. Je m'adresse aux concepteurs. Je comprends le bien fondé de votre stratégie de sécurité qui est de ne permettre qu'une session par compte.",
+      comment: t('comments.user6.comment'),
       timeAgo: "25 janvier 2024",
       verified: false
     }
@@ -87,6 +112,18 @@ const Comments = () => {
       />
     ));
   };
+
+  if (loading) {
+    return (
+      <section id="comments" className="py-12 sm:py-16 lg:py-20 bg-pink-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="comments" className="py-12 sm:py-16 lg:py-20 bg-pink-50">

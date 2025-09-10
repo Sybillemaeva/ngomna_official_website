@@ -11,35 +11,35 @@ const DGIPage = () => {
   const features = [
     {
       icon: <Calculator className="w-8 h-8" />,
-      title: "Tax Calculation",
-      description: "Automated tax calculations with real-time updates and accurate assessments.",
+      title: t('dgi.calculation_title'),
+      description: t('dgi.calculation_desc'),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <FileText className="w-8 h-8" />,
-      title: "Tax Filing",
-      description: "Submit tax returns electronically with guided step-by-step assistance.",
+      title: t('dgi.filing_title'),
+      description: t('dgi.filing_desc'),
       color: "from-green-500 to-green-600"
     },
     {
       icon: <CreditCard className="w-8 h-8" />,
-      title: "Payment Processing",
-      description: "Secure online tax payments with multiple payment method options.",
+      title: t('dgi.payment_title'),
+      description: t('dgi.payment_desc'),
       color: "from-purple-500 to-purple-600"
     },
     {
       icon: <Receipt className="w-8 h-8" />,
-      title: "Tax Records",
-      description: "Access and manage your complete tax history and documentation.",
+      title: t('dgi.tracking_title'),
+      description: t('dgi.tracking_desc'),
       color: "from-orange-500 to-orange-600"
     }
   ];
 
   const dgiServices = [
-    { icon: <TrendingUp />, title: "Tax Analytics", description: "Detailed analytics and insights on your tax obligations" },
-    { icon: <Calendar />, title: "Payment Schedules", description: "Automated reminders for tax deadlines and payments" },
-    { icon: <PieChart />, title: "Financial Reports", description: "Comprehensive financial reporting and summaries" },
-    { icon: <Building />, title: "Business Services", description: "Specialized tax services for businesses and corporations" }
+    { icon: <TrendingUp />, title: t('dgi.income_title'), description: t('dgi.income_desc') },
+    { icon: <Calendar />, title: t('dgi.vat_title'), description: t('dgi.vat_desc') },
+    { icon: <PieChart />, title: t('dgi.property_title'), description: t('dgi.property_desc') },
+    { icon: <Building />, title: t('dgi.business_title'), description: t('dgi.business_desc') }
   ];
 
   return (
@@ -62,12 +62,11 @@ const DGIPage = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              DGI Tax Services
+              {t('dgi.title')}
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Streamline your tax obligations with our comprehensive DGI integration. 
-              Calculate, file, and pay taxes efficiently through our secure digital platform.
+              {t('dgi.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,7 +75,7 @@ const DGIPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Access Tax Services
+                {t('dgi.services_btn')}
               </motion.button>
               
               <motion.button
@@ -84,7 +83,7 @@ const DGIPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Calculate Taxes
+                {t('dgi.calculate_btn')}
               </motion.button>
             </div>
           </motion.div>
@@ -102,10 +101,10 @@ const DGIPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              DGI Integration Features
+              {t('dgi.features_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Comprehensive tax management tools integrated with DGI systems
+              {t('dgi.features_subtitle')}
             </p>
           </motion.div>
 
@@ -148,10 +147,10 @@ const DGIPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Additional DGI Services
+              {t('dgi.services_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Extended services to support your tax management needs
+              {t('dgi.services_subtitle')}
             </p>
           </motion.div>
 
@@ -191,10 +190,10 @@ const DGIPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Simplify Your Tax Management
+              {t('dgi.cta_title')}
             </h2>
             <p className="text-xl text-blue-100 mb-8">
-              Access comprehensive DGI services and manage your taxes efficiently
+              {t('dgi.cta_subtitle')}
             </p>
             
             <motion.button
@@ -202,7 +201,7 @@ const DGIPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              Start Tax Management
+              {t('dgi.get_started')}
             </motion.button>
           </motion.div>
         </div>

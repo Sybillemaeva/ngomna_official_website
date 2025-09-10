@@ -11,35 +11,35 @@ const InformationPage = () => {
   const features = [
     {
       icon: <Search className="w-8 h-8" />,
-      title: "Smart Search",
-      description: "Find any information quickly with our intelligent search system and filters.",
+      title: t('information.smart_search_title'),
+      description: t('information.smart_search_desc'),
       color: "from-emerald-500 to-emerald-600"
     },
     {
       icon: <Filter className="w-8 h-8" />,
-      title: "Advanced Filtering",
-      description: "Filter information by category, date, relevance, and custom criteria.",
+      title: t('information.filtering_title'),
+      description: t('information.filtering_desc'),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Bookmark className="w-8 h-8" />,
-      title: "Save & Organize",
-      description: "Bookmark important information and organize it in custom collections.",
+      title: t('information.save_title'),
+      description: t('information.save_desc'),
       color: "from-purple-500 to-purple-600"
     },
     {
       icon: <Bell className="w-8 h-8" />,
-      title: "Information Alerts",
-      description: "Get notified when new relevant information becomes available.",
+      title: t('information.alerts_title'),
+      description: t('information.alerts_desc'),
       color: "from-orange-500 to-orange-600"
     }
   ];
 
   const infoTypes = [
-    { icon: <Globe />, title: "Government Updates", description: "Latest government policies and announcements" },
-    { icon: <Database />, title: "Public Records", description: "Access to public databases and records" },
-    { icon: <Shield />, title: "Security Notices", description: "Important security and safety information" },
-    { icon: <Info />, title: "General Information", description: "Comprehensive information repository" }
+    { icon: <Globe />, title: t('information.gov_updates_title'), description: t('information.gov_updates_desc') },
+    { icon: <Database />, title: t('information.public_records_title'), description: t('information.public_records_desc') },
+    { icon: <Shield />, title: t('information.security_notices_title'), description: t('information.security_notices_desc') },
+    { icon: <Info />, title: t('information.general_info_title'), description: t('information.general_info_desc') }
   ];
 
   return (
@@ -62,12 +62,11 @@ const InformationPage = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Information Hub
+              {t('information.title')}
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Your comprehensive source for government information, public records, 
-              and important updates. Stay informed with real-time access to verified data.
+              {t('information.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,7 +75,7 @@ const InformationPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Explore Information
+                {t('information.explore_btn')}
               </motion.button>
               
               <motion.button
@@ -84,7 +83,7 @@ const InformationPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Search Now
+                {t('information.search_btn')}
               </motion.button>
             </div>
           </motion.div>
@@ -102,10 +101,10 @@ const InformationPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Information Management Features
+              {t('information.features_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Powerful tools to help you find, organize, and stay updated with important information
+              {t('information.features_subtitle')}
             </p>
           </motion.div>
 
@@ -148,10 +147,10 @@ const InformationPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Types of Information Available
+              {t('information.types_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Access a wide range of verified information sources
+              {t('information.types_subtitle')}
             </p>
           </motion.div>
 
@@ -191,10 +190,10 @@ const InformationPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Stay Informed with nGomna
+              {t('information.cta_title')}
             </h2>
             <p className="text-xl text-emerald-100 mb-8">
-              Access verified information and stay updated with the latest developments
+              {t('information.cta_subtitle')}
             </p>
             
             <motion.button
@@ -202,7 +201,7 @@ const InformationPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              Start Exploring Information
+              {t('information.start_exploring')}
             </motion.button>
           </motion.div>
         </div>

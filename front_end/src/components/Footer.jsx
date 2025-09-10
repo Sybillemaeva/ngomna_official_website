@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Smartphone, Mail, Twitter, Facebook, Instagram, Phone, FileText, Info, Bell, Users, MessageCircle, Baby, Shield, Key, Building, Bot } from 'lucide-react';
+import { Smartphone, Mail, Twitter, Facebook, Instagram, Phone, FileText, Info, Bell, MessageCircle, Shield, Building, Bot } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import AnimatedSection from './AnimatedSection';
 
@@ -11,11 +11,8 @@ const Footer = () => {
     { name: t('footer.payslips'), href: '/payslips', icon: <FileText size={16} /> },
     { name: t('footer.information'), href: '/information', icon: <Info size={16} /> },
     { name: t('footer.notifications'), href: '/notifications', icon: <Bell size={16} /> },
-    { name: t('footer.census'), href: '/census', icon: <Users size={16} /> },
     { name: t('footer.messaging'), href: '/messaging', icon: <MessageCircle size={16} /> },
-    { name: t('footer.children'), href: '/children', icon: <Baby size={16} /> },
     { name: t('footer.security'), href: '/security', icon: <Shield size={16} /> },
-    { name: t('footer.otp'), href: '/otp', icon: <Key size={16} /> },
     { name: t('footer.dgi'), href: '/dgi', icon: <Building size={16} /> },
     { name: t('footer.govai'), href: '/gov-ai', icon: <Bot size={16} /> }
   ];

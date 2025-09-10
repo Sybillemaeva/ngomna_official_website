@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Smartphone, ChevronDown, FileText, Info, Bell, Users, MessageCircle, Baby, Shield, Key, Building, Bot } from 'lucide-react';
+import { Menu, X, Smartphone, ChevronDown, FileText, Info, Bell, MessageCircle, Shield, Building, Bot } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 
@@ -17,11 +17,8 @@ const Header = () => {
     { name: t('features.payslips'), icon: <FileText size={16} />, href: '/payslips' },
     { name: t('features.information'), icon: <Info size={16} />, href: '/information' },
     { name: t('features.notifications'), icon: <Bell size={16} />, href: '/notifications' },
-    { name: t('features.census'), icon: <Users size={16} />, href: '/census' },
     { name: t('features.messaging'), icon: <MessageCircle size={16} />, href: '/messaging' },
-    { name: t('features.children'), icon: <Baby size={16} />, href: '/children' },
     { name: t('features.security'), icon: <Shield size={16} />, href: '/security' },
-    { name: t('features.otp'), icon: <Key size={16} />, href: '/otp' },
     { name: t('features.dgi'), icon: <Building size={16} />, href: '/dgi' },
     { name: t('features.govai'), icon: <Bot size={16} />, href: '/gov-ai' }
   ];
@@ -91,7 +88,7 @@ const Header = () => {
                     <h3 className="text-sm font-semibold text-gray-900">{t('nav.features.title')}</h3>
                     <p className="text-xs text-gray-500">{t('nav.features.subtitle')}</p>
                   </div>
-                  <div className="py-2">
+                  <div className="py-2 max-h-80 overflow-y-auto dropdown-scrollable">
                     {features.map((feature, index) => (
                       <Link
                         key={index}
@@ -170,7 +167,7 @@ const Header = () => {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden bg-gray-50 rounded-lg ml-4 mt-2"
+                    className="overflow-hidden bg-gray-50 rounded-lg ml-4 mt-2 max-h-60 overflow-y-auto dropdown-scrollable"
                     onMouseEnter={() => setIsMobileDropdownOpen(true)}
                     onMouseLeave={() => setIsMobileDropdownOpen(false)}
                   >

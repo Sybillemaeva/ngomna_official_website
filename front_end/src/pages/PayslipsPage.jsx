@@ -11,35 +11,35 @@ const PayslipsPage = () => {
   const features = [
     {
       icon: <Eye className="w-8 h-8" />,
-      title: "View Payslips",
-      description: "Access and view your monthly payslips with detailed breakdown of earnings and deductions.",
+      title: t('payslips.view_title'),
+      description: t('payslips.view_desc'),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Download className="w-8 h-8" />,
-      title: "Download PDF",
-      description: "Download your payslips in PDF format for record keeping and official purposes.",
+      title: t('payslips.download_title'),
+      description: t('payslips.download_desc'),
       color: "from-green-500 to-green-600"
     },
     {
       icon: <Share className="w-8 h-8" />,
-      title: "Share Securely",
-      description: "Share your payslips securely with authorized parties through encrypted channels.",
+      title: t('payslips.share_title'),
+      description: t('payslips.share_desc'),
       color: "from-purple-500 to-purple-600"
     },
     {
       icon: <Archive className="w-8 h-8" />,
-      title: "Archive Management",
-      description: "Organize and manage your payslip history with smart archiving features.",
+      title: t('payslips.archive_title'),
+      description: t('payslips.archive_desc'),
       color: "from-orange-500 to-orange-600"
     }
   ];
 
   const benefits = [
-    { icon: <Calendar />, text: "Monthly automatic updates" },
-    { icon: <DollarSign />, text: "Detailed salary breakdown" },
-    { icon: <User />, text: "Personal information security" },
-    { icon: <Building />, text: "Government integration" }
+    { icon: <Calendar />, text: t('payslips.monthly_updates') },
+    { icon: <DollarSign />, text: t('payslips.salary_breakdown') },
+    { icon: <User />, text: t('payslips.personal_security') },
+    { icon: <Building />, text: t('payslips.gov_integration') }
   ];
 
   return (
@@ -62,12 +62,11 @@ const PayslipsPage = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Payslips Management
+              {t('payslips.title')}
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Access, download, and manage your monthly payslips with ease. 
-              Secure, fast, and always available at your fingertips.
+              {t('payslips.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,7 +75,7 @@ const PayslipsPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Access My Payslips
+                {t('payslips.access_btn')}
               </motion.button>
               
               <motion.button
@@ -84,7 +83,7 @@ const PayslipsPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Learn More
+                {t('payslips.learn_more')}
               </motion.button>
             </div>
           </motion.div>
@@ -102,10 +101,10 @@ const PayslipsPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Powerful Payslip Features
+              {t('payslips.features_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Everything you need to manage your payslips efficiently and securely
+              {t('payslips.features_subtitle')}
             </p>
           </motion.div>
 
@@ -149,7 +148,7 @@ const PayslipsPage = () => {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Why Choose nGomna for Payslips?
+                {t('payslips.benefits_title')}
               </h2>
             </motion.div>
 
@@ -185,10 +184,10 @@ const PayslipsPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Access Your Payslips?
+              {t('payslips.cta_title')}
             </h2>
             <p className="text-xl text-blue-100 mb-8">
-              Download nGomna today and start managing your payslips with ease
+              {t('payslips.cta_subtitle')}
             </p>
             
             <motion.button
@@ -196,7 +195,7 @@ const PayslipsPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              Download nGomna Now
+              {t('payslips.download_now')}
             </motion.button>
           </motion.div>
         </div>

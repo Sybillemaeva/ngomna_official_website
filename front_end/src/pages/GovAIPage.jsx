@@ -11,35 +11,35 @@ const GovAIPage = () => {
   const features = [
     {
       icon: <MessageSquare className="w-8 h-8" />,
-      title: "AI Assistant",
-      description: "Intelligent virtual assistant to help with government services and inquiries.",
+      title: t('govai.instant_title'),
+      description: t('govai.instant_desc'),
       color: "from-purple-500 to-purple-600"
     },
     {
       icon: <Search className="w-8 h-8" />,
-      title: "Smart Search",
-      description: "AI-powered search that understands context and provides relevant results.",
+      title: t('govai.guidance_title'),
+      description: t('govai.guidance_desc'),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Lightbulb className="w-8 h-8" />,
-      title: "Intelligent Recommendations",
-      description: "Personalized suggestions based on your needs and government services.",
+      title: t('govai.multilingual_title'),
+      description: t('govai.multilingual_desc'),
       color: "from-yellow-500 to-yellow-600"
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
-      title: "Predictive Analytics",
-      description: "AI-driven insights to help you plan and optimize your government interactions.",
+      title: t('govai.learning_title'),
+      description: t('govai.learning_desc'),
       color: "from-green-500 to-green-600"
     }
   ];
 
   const aiCapabilities = [
-    { icon: <Brain />, title: "Natural Language Processing", description: "Understand and respond to queries in natural language" },
-    { icon: <Zap />, title: "Real-time Processing", description: "Instant AI responses and real-time data analysis" },
-    { icon: <Settings />, title: "Adaptive Learning", description: "AI that learns from interactions to improve responses" },
-    { icon: <Bot />, title: "24/7 Availability", description: "AI assistance available around the clock" }
+    { icon: <Brain />, title: t('govai.document_title'), description: t('govai.document_desc') },
+    { icon: <Zap />, title: t('govai.procedure_title'), description: t('govai.procedure_desc') },
+    { icon: <Settings />, title: t('govai.regulation_title'), description: t('govai.regulation_desc') },
+    { icon: <Bot />, title: t('govai.appointment_title'), description: t('govai.appointment_desc') }
   ];
 
   return (
@@ -62,12 +62,11 @@ const GovAIPage = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              GOV-AI Assistant
+              {t('govai.title')}
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Experience the future of government services with our AI-powered assistant. 
-              Get instant answers, personalized recommendations, and intelligent support 24/7.
+              {t('govai.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,7 +75,7 @@ const GovAIPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Chat with AI
+                {t('govai.chat_btn')}
               </motion.button>
               
               <motion.button
@@ -84,7 +83,7 @@ const GovAIPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Explore AI Features
+                {t('govai.features_btn')}
               </motion.button>
             </div>
           </motion.div>
@@ -102,10 +101,10 @@ const GovAIPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              AI-Powered Features
+              {t('govai.features_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Advanced artificial intelligence capabilities to enhance your government service experience
+              {t('govai.features_subtitle')}
             </p>
           </motion.div>
 
@@ -148,10 +147,10 @@ const GovAIPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              AI Capabilities
+              {t('govai.capabilities_title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Cutting-edge AI technologies powering your government service experience
+              {t('govai.capabilities_subtitle')}
             </p>
           </motion.div>
 
@@ -191,10 +190,10 @@ const GovAIPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Experience AI-Powered Government Services
+              {t('govai.cta_title')}
             </h2>
             <p className="text-xl text-purple-100 mb-8">
-              Let our AI assistant guide you through government services with intelligent support
+              {t('govai.cta_subtitle')}
             </p>
             
             <motion.button
@@ -202,7 +201,7 @@ const GovAIPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              Start AI Conversation
+              {t('govai.try_now')}
             </motion.button>
           </motion.div>
         </div>

@@ -1,13 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Target, ArrowRight, Shield, Users, Globe, Mail, Smartphone, Bell, Lock, CheckCircle, Star } from 'lucide-react';
+import { Eye, Target, ArrowRight, Shield, Users, Globe, Mail, Smartphone, Bell, Lock, CheckCircle, Star, Settings, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import AnimatedSection from './AnimatedSection';
+import homeService from '../services/homeService';
 
 const About = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
+  const [dynamicContent, setDynamicContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const stats = [
+  // Icon mapping
+  const iconMap = {
+    Users: <Users className="w-8 h-8" />,
+    Globe: <Globe className="w-8 h-8" />,
+    Star: <Star className="w-8 h-8" />,
+    Shield: <Shield className="w-8 h-8" />,
+    Smartphone: <Smartphone className="w-6 h-6" />,
+    Bell: <Bell className="w-6 h-6" />,
+    Lock: <Lock className="w-6 h-6" />,
+    CheckCircle: <CheckCircle className="w-6 h-6" />,
+    MessageCircle: <MessageCircle className="w-8 h-8" />,
+    Settings: <Settings className="w-6 h-6" />
+  };
+
+  useEffect(() => {
+    const fetchHomepageContent = async () => {
+      try {
+        setLoading(true);
+        const response = await homeService.getHomepageContent(currentLanguage);
+        setDynamicContent(response.data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching homepage content:', err);
+        setError('Failed to load content');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHomepageContent();
+  }, [currentLanguage]);
+
+  // Fallback data in case API fails
+  const fallbackStats = [
     {
       icon: <Users className="w-8 h-8" />,
       number: "10M+",
@@ -16,7 +53,7 @@ const About = () => {
     },
     {
       icon: <Globe className="w-8 h-8" />,
-      number: "50+",
+      number: "7+",
       label: t('about.stats.services'),
       color: "from-green-500 to-green-600"
     },
@@ -34,7 +71,7 @@ const About = () => {
     }
   ];
 
-  const visionPoints = [
+  const fallbackVisionPoints = [
     {
       icon: <Users className="w-6 h-6" />,
       text: t('about.vision.point1')
@@ -53,7 +90,7 @@ const About = () => {
     }
   ];
 
-  const missionPoints = [
+  const fallbackMissionPoints = [
     {
       icon: <Smartphone className="w-6 h-6" />,
       text: t('about.mission.point1')
@@ -72,23 +109,59 @@ const About = () => {
     }
   ];
 
-  const futureServices = [
+  const fallbackFutureServices = [
     {
-      icon: <Mail className="w-8 h-8" />,
+      icon: <MessageCircle className="w-8 h-8" />,
       title: t('about.future.service1.title'),
-      description: t('about.future.service1.description')
+      description: t('about.future.service1.description'),
+      color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Globe className="w-8 h-8" />,
       title: t('about.future.service2.title'),
-      description: t('about.future.service2.description')
+      description: t('about.future.service2.description'),
+      color: "from-green-500 to-green-600"
     },
     {
       icon: <Shield className="w-8 h-8" />,
       title: t('about.future.service3.title'),
-      description: t('about.future.service3.description')
+      description: t('about.future.service3.description'),
+      color: "from-purple-500 to-purple-600"
     }
   ];
+
+  // Use dynamic content if available, otherwise fallback
+  const stats = dynamicContent?.stats?.map(stat => ({
+    ...stat,
+    icon: iconMap[stat.icon] || <Users className="w-8 h-8" />
+  })) || fallbackStats;
+
+  const visionPoints = dynamicContent?.visionPoints?.map(point => ({
+    ...point,
+    icon: iconMap[point.icon] || <Users className="w-6 h-6" />
+  })) || fallbackVisionPoints;
+
+  const missionPoints = dynamicContent?.missionPoints?.map(point => ({
+    ...point,
+    icon: iconMap[point.icon] || <Smartphone className="w-6 h-6" />
+  })) || fallbackMissionPoints;
+
+  const futureServices = dynamicContent?.futureServices?.map(service => ({
+    ...service,
+    icon: iconMap[service.icon] || <MessageCircle className="w-8 h-8" />
+  })) || fallbackFutureServices;
+
+  if (loading) {
+    return (
+      <section id="about" className="py-12 sm:py-16 lg:py-20 bg-blue-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="about" className="py-12 sm:py-16 lg:py-20 bg-blue-50">
