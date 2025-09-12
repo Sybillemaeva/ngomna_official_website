@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbars for all browsers */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* WebKit browsers (Chrome, Safari, Edge) */
+}
+
+/* Ensure body and html can still scroll */
+html, body {
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
 /* Responsive breakpoints for better control */
 @screen 2xl {
   .container {
@@ -90,42 +106,4 @@
       height: 600px;
     }
   }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f3f4f6;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-}
-
-/* Dropdown specific scrollbar */
-.dropdown-scrollable::-webkit-scrollbar {
-  width: 4px;
-}
-
-.dropdown-scrollable::-webkit-scrollbar-track {
-  background: #f9fafb;
-  border-radius: 2px;
-}
-
-.dropdown-scrollable::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 2px;
-}
-
-.dropdown-scrollable::-webkit-scrollbar-thumb:hover {
-  background: #10b981;
 }
