@@ -3,11 +3,11 @@
 
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Set up Sequelize and PostgreSQL
-const sequelize = new Sequelize('ngomna', 'postgres', '12345', {
-  host: 'localhost',
-  dialect: 'postgres',
-  port: 5433
+// Set up Sequelize with SQLite for WebContainer compatibility
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './database.sqlite',
+  logging: false
 });
 
 // Define the Page model (main pages)
