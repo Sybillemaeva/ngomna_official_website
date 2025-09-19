@@ -465,12 +465,10 @@ const getFeatures = async (req, res) => {
   }
 };
 
-module.exports = {
-  getHomepageContent,
-  getNewsArticles,
-  getFaqData,
-  getTestimonials,
-  getPageContent,
-  getSectionFeatures,
-  getFeatures
-};
+module.exports.getHomepageContent = getHomepageContent;
+module.exports.getNewsArticles = getNewsArticles;
+module.exports.getFaqData = getFaqData;
+module.exports.getTestimonials = getTestimonials;
+module.exports.getPageContent = getPageContent;
+module.exports.getSectionFeatures = getSectionFeatures;
+module.exports.getFeatures = getFeatures;
