@@ -1,6 +1,15 @@
 // homeController.js
 
-const { sequelize, Page, Text } = require('../config/Database');
+const {
+  sequelize,
+  Page,
+  Section,
+  Content,
+  NewsArticle,
+  FAQ,
+  Review,
+  Feature
+} = require('../config/Database');
 
 // Get homepage content (stats, news, etc.)
 const getHomepageContent = async (req, res) => {
@@ -158,59 +167,28 @@ const getHomepageContent = async (req, res) => {
 const getNewsArticles = async (req, res) => {
   try {
     const { language = 'en' } = req.query;
-    
-    const newsItems = [
-      {
-        id: 1,
-        title: "GOV IA : UNE RÉVOLUTION POUR L'ADMINISTRATION PUBLIQUE CAMEROUNAISE",
-        excerpt: language === 'fr' 
-          ? "Découvrez comment l'intelligence artificielle transforme les services publics camerounais avec des innovations révolutionnaires."
-          : "Discover how artificial intelligence is transforming Cameroonian public services with revolutionary innovations.",
-        date: "2025-01-15",
-        category: language === 'fr' ? "Innovation" : "Innovation",
-        icon: "Zap",
-        images: [
-          "/GOV AI IMAGE 1.jpg",
-          "/GOV AI IMAGE 2.jpg", 
-          "/GOV AI IMAGE 3.jpg"
-        ],
-        featured: true,
-        link: "https://impactechosnews.com/sago-2025-le-ministere-des-finances-expose-ses-innovations/"
-      },
-      {
-        id: 2,
-        title: language === 'fr' ? 'nGomna 3.0 : Nouvelles Fonctionnalités de Sécurité Avancées' : 'nGomna 3.0: Advanced Security Features Now Live',
-        excerpt: language === 'fr' 
-          ? 'La dernière mise à jour de nGomna introduit des fonctionnalités de sécurité révolutionnaires pour protéger vos données personnelles.'
-          : 'The latest nGomna update introduces revolutionary security features to protect your personal data.',
-        date: "2025-01-10",
-        category: language === 'fr' ? "Sécurité" : "Security",
-        icon: "Shield",
-        image: "https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=600"
-      },
-      {
-        id: 3,
-        title: language === 'fr' ? 'Plus de 2 Millions d\'Utilisateurs Actifs' : 'Community Milestone: 2 Million Active Users',
-        excerpt: language === 'fr'
-          ? 'nGomna franchit le cap des 2 millions d\'utilisateurs actifs, confirmant son succès auprès des fonctionnaires camerounais.'
-          : 'nGomna reaches 2 million active users, confirming its success among Cameroonian civil servants.',
-        date: "2025-01-05",
-        category: language === 'fr' ? "Communauté" : "Community",
-        icon: "Users",
-        image: "https://images.pexels.com/photos/1068523/pexels-photo-1068523.jpeg?auto=compress&cs=tinysrgb&w=600"
-      },
-      {
-        id: 4,
-        title: language === 'fr' ? 'nGomna Remporte le Prix \'Application de l\'Année\'' : 'nGomna Wins \'App of the Year\' Award',
-        excerpt: language === 'fr'
-          ? 'Nous sommes honorés de recevoir cette reconnaissance prestigieuse des Mobile Excellence Awards 2025.'
-          : 'We\'re honored to receive this prestigious recognition from the Mobile Excellence Awards 2025.',
-        date: "2025-01-01",
-        category: language === 'fr' ? "Récompenses" : "Awards",
-        icon: "Star",
-        image: "https://images.pexels.com/photos/1181359/pexels-photo-1181359.jpeg?auto=compress&cs=tinysrgb&w=600"
-      }
-    ];
+
+    // Fetch news articles from database
+    const newsArticles = await NewsArticle.findAll({
+      where: { published: true },
+      order: [['featured', 'DESC'], ['publishedAt', 'DESC']]
+    });
+
+    // Format articles for response based on language
+    const newsItems = newsArticles.map(article => ({
+      id: article.id,
+      title: language === 'fr' ? (article.titleFr || article.title) : (article.titleEn || article.title),
+      excerpt: language === 'fr' ? (article.excerptFr || article.excerpt) : (article.excerptEn || article.excerpt),
+      content: language === 'fr' ? (article.contentFr || article.content) : (article.contentEn || article.content),
+      date: article.publishedAt,
+      category: language === 'fr' ? (article.categoryFr || article.category) : (article.categoryEn || article.category),
+      icon: article.icon,
+      image: article.image,
+      images: article.images,
+      featured: article.featured,
+      link: article.externalLink,
+      slug: article.slug
+    }));
 
     res.status(200).json({
       success: true,
@@ -231,44 +209,20 @@ const getNewsArticles = async (req, res) => {
 const getFaqData = async (req, res) => {
   try {
     const { language = 'en' } = req.query;
-    
-    const faqs = [
-      {
-        id: 1,
-        question: language === 'fr' ? 'nGomna est-il vraiment gratuit?' : 'Is nGomna really free to use?',
-        answer: language === 'fr' 
-          ? 'Oui! nGomna est complètement gratuit à télécharger et à utiliser. Nous croyons en la fourniture de fonctionnalités premium sans aucun coût pour nos utilisateurs.'
-          : 'Yes! nGomna is completely free to download and use. We believe in providing premium features without any cost to our users.'
-      },
-      {
-        id: 2,
-        question: language === 'fr' ? 'Quelle est la sécurité de mes données avec nGomna?' : 'How secure is my data with nGomna?',
-        answer: language === 'fr'
-          ? 'Votre confidentialité et votre sécurité sont nos priorités absolues. nGomna utilise un chiffrement de bout en bout de qualité militaire.'
-          : 'Your privacy and security are our top priorities. nGomna uses military-grade end-to-end encryption to protect all your data.'
-      },
-      {
-        id: 3,
-        question: language === 'fr' ? 'Quels appareils nGomna prend-il en charge?' : 'Which devices does nGomna support?',
-        answer: language === 'fr'
-          ? 'nGomna est disponible sur iOS, Android, et nous offrons également une version web avec synchronisation parfaite.'
-          : 'nGomna is available on iOS, Android, and we also offer a web version with seamless synchronization across all devices.'
-      },
-      {
-        id: 4,
-        question: language === 'fr' ? 'Comment commencer avec nGomna?' : 'How do I get started with nGomna?',
-        answer: language === 'fr'
-          ? 'Téléchargez nGomna depuis l\'App Store ou Google Play, créez votre compte gratuit, et suivez notre processus d\'intégration intuitif.'
-          : 'Download nGomna from the App Store or Google Play, create your free account, and follow our intuitive onboarding process.'
-      },
-      {
-        id: 5,
-        question: language === 'fr' ? 'Puis-je utiliser nGomna hors ligne?' : 'Can I use nGomna offline?',
-        answer: language === 'fr'
-          ? 'Oui, de nombreuses fonctionnalités principales fonctionnent hors ligne avec synchronisation automatique lors de la reconnexion.'
-          : 'Yes, many core features work offline. Your data is cached locally and syncs automatically when you reconnect.'
-      }
-    ];
+
+    // Fetch FAQs from database
+    const faqData = await FAQ.findAll({
+      where: { published: true },
+      order: [['order', 'ASC'], ['id', 'ASC']]
+    });
+
+    // Format FAQs for response based on language
+    const faqs = faqData.map(faq => ({
+      id: faq.id,
+      question: language === 'fr' ? (faq.questionFr || faq.question) : (faq.questionEn || faq.question),
+      answer: language === 'fr' ? (faq.answerFr || faq.answer) : (faq.answerEn || faq.answer),
+      category: faq.category
+    }));
 
     res.status(200).json({
       success: true,
@@ -289,81 +243,24 @@ const getFaqData = async (req, res) => {
 const getTestimonials = async (req, res) => {
   try {
     const { language = 'en' } = req.query;
-    
-    const testimonials = [
-      {
-        id: 1,
-        name: language === 'fr' ? 'Vladimir Cruise' : 'Vladimir Cruise',
-        username: '@vladimir_cruise',
-        avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150',
-        rating: 5,
-        comment: language === 'fr'
-          ? 'Une application révolutionnaire qui simplifie vraiment la vie des fonctionnaires camerounais. Interface intuitive et sécurisée!'
-          : 'A revolutionary app that truly simplifies the lives of Cameroonian civil servants. Intuitive and secure interface!',
-        timeAgo: '14 juillet 2025',
-        verified: true
-      },
-      {
-        id: 2,
-        name: language === 'fr' ? 'Freddy Djilo' : 'Freddy Djilo',
-        username: '@freddy_djilo',
-        avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150',
-        rating: 5,
-        comment: language === 'fr'
-          ? 'Enfin une solution durable pour télécharger nos bulletins de paie en toute sécurité. Bravo à l\'équipe technique!'
-          : 'Finally a sustainable solution to download our payslips securely. Congratulations to the technical team!',
-        timeAgo: '30 mars 2024',
-        verified: true
-      },
-      {
-        id: 3,
-        name: language === 'fr' ? 'Carmelo Megha' : 'Carmelo Megha',
-        username: '@carmelo_megha',
-        avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150',
-        rating: 5,
-        comment: language === 'fr'
-          ? 'Interface utilisateur excellente, processus de téléchargement rapide et sécurisé. Je recommande vivement cette application.'
-          : 'Excellent user interface, fast and secure download process. I highly recommend this application.',
-        timeAgo: '24 août 2023',
-        verified: false
-      },
-      {
-        id: 4,
-        name: language === 'fr' ? 'Patou Ngoutane' : 'Patou Ngoutane',
-        username: '@patou_ngoutane',
-        avatar: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150',
-        rating: 5,
-        comment: language === 'fr'
-          ? 'Très pratique pour accéder à nos documents administratifs. Plus besoin de faire la queue dans les bureaux!'
-          : 'Very practical for accessing our administrative documents. No more waiting in office queues!',
-        timeAgo: '6 janvier 2024',
-        verified: true
-      },
-      {
-        id: 5,
-        name: language === 'fr' ? 'Kris M.' : 'Kris M.',
-        username: '@kris_m',
-        avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150',
-        rating: 5,
-        comment: language === 'fr'
-          ? 'Application stable et fiable. Le support technique est réactif et professionnel. Parfait pour nos besoins quotidiens.'
-          : 'Stable and reliable application. Technical support is responsive and professional. Perfect for our daily needs.',
-        timeAgo: '5 août 2024',
-        verified: false
-      },
-      {
-        id: 6,
-        name: language === 'fr' ? 'Abraham Nindjio' : 'Abraham Nindjio',
-        username: '@abraham_nindjio',
-        avatar: 'https://images.pexels.com/photos/1681686/pexels-photo-1681686.jpeg?auto=compress&cs=tinysrgb&w=150',
-        rating: 5,
-        comment: language === 'fr'
-          ? 'Excellente initiative du gouvernement camerounais. Cette app facilite vraiment l\'accès aux services publics.'
-          : 'Excellent initiative by the Cameroonian government. This app really facilitates access to public services.',
-        timeAgo: '25 janvier 2024',
-        verified: false
-      }
-    ];
+
+    // Fetch reviews from database
+    const reviewData = await Review.findAll({
+      where: { published: true },
+      order: [['publishedAt', 'DESC']]
+    });
+
+    // Format reviews for response based on language
+    const testimonials = reviewData.map(review => ({
+      id: review.id,
+      name: review.name,
+      username: review.username,
+      avatar: review.avatar,
+      rating: review.rating,
+      comment: language === 'fr' ? (review.commentFr || review.comment) : (review.commentEn || review.comment),
+      timeAgo: review.publishedAt,
+      verified: review.verified
+    }));
 
     res.status(200).json({
       success: true,
@@ -380,9 +277,200 @@ const getTestimonials = async (req, res) => {
   }
 };
 
+// Get page content with all sections
+const getPageContent = async (req, res) => {
+  try {
+    const { pageSlug } = req.params;
+    const { language = 'en' } = req.query;
+
+    // Find the page by slug
+    const page = await Page.findOne({
+      where: { slug: pageSlug, published: true },
+      include: [
+        {
+          model: Section,
+          as: 'sections',
+          where: { published: true },
+          required: false,
+          include: [
+            {
+              model: Content,
+              as: 'contents',
+              where: { published: true },
+              required: false
+            },
+            {
+              model: Feature,
+              as: 'features',
+              where: { published: true },
+              required: false
+            }
+          ]
+        }
+      ],
+      order: [
+        [{ model: Section, as: 'sections' }, 'order', 'ASC'],
+        [{ model: Section, as: 'sections' }, { model: Content, as: 'contents' }, 'order', 'ASC'],
+        [{ model: Section, as: 'sections' }, { model: Feature, as: 'features' }, 'order', 'ASC']
+      ]
+    });
+
+    if (!page) {
+      return res.status(404).json({
+        success: false,
+        message: 'Page not found'
+      });
+    }
+
+    // Format page content based on language
+    const pageContent = {
+      id: page.id,
+      name: page.name,
+      slug: page.slug,
+      url: page.url,
+      pageType: page.pageType,
+      sections: page.sections.map(section => ({
+        id: section.id,
+        name: section.name,
+        sectionType: section.sectionType,
+        order: section.order,
+        contents: section.contents.map(content => ({
+          id: content.id,
+          title: language === 'fr' ? (content.titleFr || content.title) : (content.titleEn || content.title),
+          subtitle: language === 'fr' ? (content.subtitleFr || content.subtitle) : (content.subtitleEn || content.subtitle),
+          description: language === 'fr' ? (content.descriptionFr || content.description) : (content.descriptionEn || content.description),
+          contentData: content.contentData,
+          order: content.order
+        })),
+        features: section.features.map(feature => ({
+          id: feature.id,
+          title: language === 'fr' ? (feature.titleFr || feature.title) : (feature.titleEn || feature.title),
+          description: language === 'fr' ? (feature.descriptionFr || feature.description) : (feature.descriptionEn || feature.description),
+          icon: feature.icon,
+          color: feature.color,
+          order: feature.order
+        }))
+      }))
+    };
+
+    res.status(200).json({
+      success: true,
+      data: pageContent
+    });
+
+  } catch (error) {
+    console.error('Error fetching page content:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching page content',
+      error: error.message
+    });
+  }
+};
+
+// Get features for a specific section
+const getSectionFeatures = async (req, res) => {
+  try {
+    const { sectionId } = req.params;
+    const { language = 'en' } = req.query;
+
+    // Fetch features for the section
+    const features = await Feature.findAll({
+      where: { sectionId, published: true },
+      order: [['order', 'ASC'], ['id', 'ASC']]
+    });
+
+    // Format features for response based on language
+    const formattedFeatures = features.map(feature => ({
+      id: feature.id,
+      title: language === 'fr' ? (feature.titleFr || feature.title) : (feature.titleEn || feature.title),
+      description: language === 'fr' ? (feature.descriptionFr || feature.description) : (feature.descriptionEn || feature.description),
+      icon: feature.icon,
+      color: feature.color,
+      order: feature.order
+    }));
+
+    res.status(200).json({
+      success: true,
+      data: formattedFeatures
+    });
+
+  } catch (error) {
+    console.error('Error fetching section features:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching section features',
+      error: error.message
+    });
+  }
+};
+
+// Get features for home page Features section
+const getFeatures = async (req, res) => {
+  try {
+    const { language = 'en' } = req.query;
+
+    // Find home page features section
+    const homePage = await Page.findOne({ where: { slug: 'home' } });
+    if (!homePage) {
+      return res.status(404).json({
+        success: false,
+        message: 'Home page not found'
+      });
+    }
+
+    const featuresSection = await Section.findOne({
+      where: {
+        pageId: homePage.id,
+        sectionType: 'why_choose_ngomna',
+        published: true
+      }
+    });
+
+    if (!featuresSection) {
+      return res.status(404).json({
+        success: false,
+        message: 'Features section not found'
+      });
+    }
+
+    // Fetch features for the section
+    const features = await Feature.findAll({
+      where: { sectionId: featuresSection.id, published: true },
+      order: [['order', 'ASC'], ['id', 'ASC']]
+    });
+
+    // Format features for response based on language
+    const formattedFeatures = features.map(feature => ({
+      id: feature.id,
+      title: language === 'fr' ? (feature.titleFr || feature.title) : (feature.titleEn || feature.title),
+      description: language === 'fr' ? (feature.descriptionFr || feature.description) : (feature.descriptionEn || feature.description),
+      icon: feature.icon,
+      color: feature.color,
+      order: feature.order
+    }));
+
+    res.status(200).json({
+      success: true,
+      data: formattedFeatures
+    });
+
+  } catch (error) {
+    console.error('Error fetching features:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching features',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getHomepageContent,
   getNewsArticles,
   getFaqData,
-  getTestimonials
+  getTestimonials,
+  getPageContent,
+  getSectionFeatures,
+  getFeatures
 };

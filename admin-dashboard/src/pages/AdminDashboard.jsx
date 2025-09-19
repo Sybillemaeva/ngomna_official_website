@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import apiService from '../services/api';
 import { useMenus, usePages, useTextContent } from '../hooks/useApi';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   LayoutDashboard, 
   Users, 
@@ -55,6 +56,9 @@ const AdminDashboard = () => {
   const [editingContent, setEditingContent] = useState('');
   const [apiError, setApiError] = useState(null);
   const [saveStatus, setSaveStatus] = useState(null);
+
+  // Auth hook
+  const { logout } = useAuth();
 
   // API hooks
   const { data: menus, loading: menusLoading, error: menusError } = useMenus();
@@ -802,7 +806,10 @@ const AdminDashboard = () => {
               <Home size={20} />
               <span>Back to Website</span>
             </a>
-            <button className="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors">
+            <button 
+              onClick={logout}
+              className="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
+            >
               <LogOut size={20} />
               <span>Logout</span>
             </button>

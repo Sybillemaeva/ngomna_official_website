@@ -14,7 +14,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
 const News = () => {
-  const { t, currentLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
   const [newsItems, setNewsItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ const News = () => {
     const fetchNewsArticles = async () => {
       try {
         setLoading(true);
-        const response = await homeService.getNewsArticles(currentLanguage);
+        const response = await homeService.getNewsArticles(language);
         const articlesWithIcons = response.data.map(article => ({
           ...article,
           icon: iconMap[article.icon] || <Zap className="w-5 h-5" />
@@ -50,7 +50,7 @@ const News = () => {
     };
 
     fetchNewsArticles();
-  }, [currentLanguage]);
+  }, [language]);
 
   // Default fallback news items
   const defaultNewsItems = [

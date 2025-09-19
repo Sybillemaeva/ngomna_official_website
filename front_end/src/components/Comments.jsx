@@ -15,7 +15,7 @@ import 'swiper/css/pagination';
 import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 
 const Comments = () => {
-  const { t, currentLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ const Comments = () => {
     const fetchTestimonials = async () => {
       try {
         setLoading(true);
-        const response = await homeService.getTestimonials(currentLanguage);
+        const response = await homeService.getTestimonials(language);
         setComments(response.data);
         setError(null);
       } catch (err) {
@@ -38,7 +38,7 @@ const Comments = () => {
     };
 
     fetchTestimonials();
-  }, [currentLanguage]);
+  }, [language]);
 
   // Fallback testimonials data
   const fallbackComments = [

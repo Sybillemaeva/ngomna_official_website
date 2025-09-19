@@ -5,8 +5,9 @@ const router = express.Router();
 const menuController = require('../controllers/menuController');
 const linkController = require('../controllers/linkController');
 const pageController = require('../controllers/pageController');
-const mediaController = require('../controllers/mediaController'); // Import the text controller
-const homeController = require('../controllers/homeController'); // Import the home controller
+const mediaController = require('../controllers/mediaController');
+const sectionController = require('../controllers/sectionController');
+const homeController = require('../controllers/homeController');
 
 // Route to get all menus
 router.get('/api/menus', menuController.getAllMenus);
@@ -24,18 +25,49 @@ router.post('/api/links', linkController.addLink);
 router.delete('/api/links/label/:label', linkController.deleteLink);
 router.put('/api/links/:id', linkController.updateLink);
 
-// Page Routes
-router.get('/api/pages', pageController.getPages);
-router.put('/api/:pageId', pageController.updatePage);
+// Page Routes - Enhanced for multimedia support
+router.get('/api/pages', pageController.getAllPages);
+router.get('/api/pages/:id', pageController.getPageById);
+router.get('/api/pages/slug/:slug', pageController.getPageBySlug);
+router.get('/api/pages/type/:pageType', pageController.getPagesByType);
+router.post('/api/pages', pageController.createPage);
+router.put('/api/pages/:id', pageController.updatePage);
+router.delete('/api/pages/:id', pageController.deletePage);
 
-// Text Routes
-router.get('/api/text/:pageId', mediaController.getTextByPageId); // Add this route
-router.put('/api/text/:pageId', mediaController.updateTextByPageId); // Add this route for updating text
+// Section Routes - Multimedia content sections
+router.get('/api/sections/page/:pageId', sectionController.getSectionsByPage);
+router.get('/api/sections/:id', sectionController.getSection);
+router.get('/api/sections/type/:sectionType', sectionController.getSectionsByType);
+router.post('/api/sections', sectionController.createSection);
+router.put('/api/sections/:id', sectionController.updateSection);
+router.delete('/api/sections/:id', sectionController.deleteSection);
 
-// Homepage Routes
-router.get('/api/homepage/content', homeController.getHomepageContent); // Homepage stats, vision, mission, etc.
-router.get('/api/homepage/news', homeController.getNewsArticles); // News articles
-router.get('/api/homepage/faq', homeController.getFaqData); // FAQ data
-router.get('/api/homepage/testimonials', homeController.getTestimonials); // User testimonials
+// Section-Media Association Routes
+router.post('/api/sections/:sectionId/media/:mediaId', sectionController.addMediaToSection);
+router.delete('/api/sections/:sectionId/media/:mediaId', sectionController.removeMediaFromSection);
+
+// Media Routes - Complete multimedia management
+router.get('/api/media', mediaController.getAllMedia);
+router.get('/api/media/:id', mediaController.getMediaById);
+router.get('/api/media/section/:sectionId', mediaController.getMediaBySection);
+router.get('/api/media/search', mediaController.searchMedia);
+router.post('/api/media/upload', mediaController.uploadFile, mediaController.createMedia);
+router.put('/api/media/:id', mediaController.updateMedia);
+router.delete('/api/media/:id', mediaController.deleteMedia);
+
+// Legacy Text Routes (for backward compatibility)
+router.get('/api/text/:pageId', mediaController.getTextByPageId);
+router.put('/api/text/:pageId', mediaController.updateTextByPageId);
+
+// Homepage Routes - Updated for multimedia sections
+router.get('/api/homepage/content', homeController.getHomepageContent);
+router.get('/api/homepage/news', homeController.getNewsArticles);
+router.get('/api/homepage/faq', homeController.getFaqData);
+router.get('/api/homepage/testimonials', homeController.getTestimonials);
+router.get('/api/homepage/features', homeController.getFeatures);
+
+// Page Content Routes - Enhanced for multimedia
+router.get('/api/pages/:pageSlug/content', homeController.getPageContent);
+router.get('/api/sections/:sectionId/features', homeController.getSectionFeatures);
 
 module.exports = router;

@@ -782,8 +782,7 @@ MenuItem.belongsTo(Page, { foreignKey: 'pageId', as: 'page' });
 Page.hasMany(Link, { foreignKey: 'pageId', as: 'links' });
 Link.belongsTo(Page, { foreignKey: 'pageId', as: 'page' });
 
-// Sync database - temporarily using force: true to recreate tables
-// Change to { alter: true } for production use after initial setup
+// Sync database
 sequelize.sync({ force: true }).then(async () => {
   console.log('✅ Enhanced multimedia database synchronized');
 

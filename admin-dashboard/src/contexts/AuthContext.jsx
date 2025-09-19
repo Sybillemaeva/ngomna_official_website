@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -13,6 +14,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check if user is already logged in (from localStorage)
@@ -35,6 +37,7 @@ export const AuthProvider = ({ children }) => {
       
       setUser(userData);
       localStorage.setItem('ngomna_admin_user', JSON.stringify(userData));
+      navigate('/dashboard');
       return userData;
     } else {
       throw new Error('Invalid credentials');
@@ -44,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('ngomna_admin_user');
+    navigate('/login');
   };
 
   const value = {

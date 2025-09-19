@@ -6,7 +6,7 @@ import AnimatedSection from './AnimatedSection';
 import homeService from '../services/homeService';
 
 const About = () => {
-  const { t, currentLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   const [dynamicContent, setDynamicContent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +29,7 @@ const About = () => {
     const fetchHomepageContent = async () => {
       try {
         setLoading(true);
-        const response = await homeService.getHomepageContent(currentLanguage);
+        const response = await homeService.getHomepageContent(language);
         setDynamicContent(response.data);
         setError(null);
       } catch (err) {
@@ -41,7 +41,7 @@ const About = () => {
     };
 
     fetchHomepageContent();
-  }, [currentLanguage]);
+  }, [language]);
 
   // Fallback data in case API fails
   const fallbackStats = [

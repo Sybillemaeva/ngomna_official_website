@@ -7,7 +7,7 @@ import homeService from '../services/homeService';
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState(new Set());
-  const { t, currentLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   const [faqs, setFaqs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ const FAQ = () => {
     const fetchFaqData = async () => {
       try {
         setLoading(true);
-        const response = await homeService.getFaqData(currentLanguage);
+        const response = await homeService.getFaqData(language);
         setFaqs(response.data);
         setError(null);
       } catch (err) {
@@ -30,7 +30,7 @@ const FAQ = () => {
     };
 
     fetchFaqData();
-  }, [currentLanguage]);
+  }, [language]);
 
   // Fallback FAQ data
   const fallbackFaqs = [
