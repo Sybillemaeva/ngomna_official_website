@@ -1,102 +1,52 @@
 const express = require('express');
 const router = express.Router();
 
-// Homepage content endpoints
-router.get('/api/homepage/content', (req, res) => {
-  const language = req.query.language || 'en';
-  
-  // Mock data for homepage content
-  const content = {
-    stats: {
-      users: '1M+',
-      services: '50+',
-      satisfaction: '98%'
-    },
-    vision: language === 'fr' ? 'Notre vision pour l\'avenir' : 'Our vision for the future',
-    mission: language === 'fr' ? 'Notre mission est de servir' : 'Our mission is to serve',
-    futureServices: language === 'fr' ? 'Services futurs' : 'Future services'
-  };
-  
-  res.json({ success: true, data: content });
-});
+// Import controllers
+const homeController = require('../controllers/homeController');
+const menuController = require('../controllers/menuController');
+const linkController = require('../controllers/linkController');
+const pageController = require('../controllers/pageController');
+const mediaController = require('../controllers/mediaController');
+const sectionController = require('../controllers/sectionController');
 
-// FAQ endpoints
-router.get('/api/homepage/faq', (req, res) => {
-  const language = req.query.language || 'en';
-  
-  const faqs = [
-    {
-      id: 1,
-      question: language === 'fr' ? 'Comment puis-je accéder aux services?' : 'How can I access the services?',
-      answer: language === 'fr' ? 'Vous pouvez accéder aux services via notre plateforme en ligne.' : 'You can access services through our online platform.'
-    },
-    {
-      id: 2,
-      question: language === 'fr' ? 'Quels documents sont requis?' : 'What documents are required?',
-      answer: language === 'fr' ? 'Les documents requis varient selon le service.' : 'Required documents vary by service.'
-    },
-    {
-      id: 3,
-      question: language === 'fr' ? 'Combien de temps prend le traitement?' : 'How long does processing take?',
-      answer: language === 'fr' ? 'Le temps de traitement varie de 1 à 5 jours ouvrables.' : 'Processing time varies from 1 to 5 business days.'
-    },
-    {
-      id: 4,
-      question: language === 'fr' ? 'Comment puis-je suivre ma demande?' : 'How can I track my application?',
-      answer: language === 'fr' ? 'Vous pouvez suivre votre demande via votre compte utilisateur.' : 'You can track your application through your user account.'
-    },
-    {
-      id: 5,
-      question: language === 'fr' ? 'Que faire en cas de problème?' : 'What to do in case of issues?',
-      answer: language === 'fr' ? 'Contactez notre support client pour toute assistance.' : 'Contact our customer support for assistance.'
-    }
-  ];
-  
-  res.json({ success: true, data: faqs });
-});
+// Homepage/Home routes
+router.get('/api/homepage/content', homeController.getHomepageContent);
+router.get('/api/homepage/faq', homeController.getFaqData);
+router.get('/api/homepage/news', homeController.getNewsData);
+router.get('/api/homepage/testimonials', homeController.getTestimonialsData);
 
-// News endpoints
-router.get('/api/homepage/news', (req, res) => {
-  const language = req.query.language || 'en';
-  
-  const news = [
-    {
-      id: 1,
-      title: language === 'fr' ? 'Nouveaux services disponibles' : 'New services available',
-      content: language === 'fr' ? 'Découvrez nos nouveaux services en ligne.' : 'Discover our new online services.',
-      date: '2024-01-15'
-    },
-    {
-      id: 2,
-      title: language === 'fr' ? 'Mise à jour de la plateforme' : 'Platform update',
-      content: language === 'fr' ? 'Notre plateforme a été mise à jour avec de nouvelles fonctionnalités.' : 'Our platform has been updated with new features.',
-      date: '2024-01-10'
-    }
-  ];
-  
-  res.json({ success: true, data: news });
-});
+// Menu routes
+router.get('/api/menus', menuController.getAllMenus);
+router.get('/api/menuitems/:menuId', menuController.getMenuItemsByMenuId);
+router.post('/api/menuitems/:menuId', menuController.addMenuItem);
+router.put('/api/menuitems/label/:label', menuController.updateMenuItemByLabel);
+router.delete('/api/menuitems/label/:label', menuController.deleteMenuItemByLabel);
 
-// Testimonials endpoints
-router.get('/api/homepage/testimonials', (req, res) => {
-  const language = req.query.language || 'en';
-  
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Jean Dupont',
-      message: language === 'fr' ? 'Service excellent et rapide!' : 'Excellent and fast service!',
-      rating: 5
-    },
-    {
-      id: 2,
-      name: 'Marie Martin',
-      message: language === 'fr' ? 'Très satisfaite de l\'expérience.' : 'Very satisfied with the experience.',
-      rating: 5
-    }
-  ];
-  
-  res.json({ success: true, data: testimonials });
-});
+// Page routes
+router.get('/api/pages', pageController.getAllPages);
+router.put('/api/pages/:pageId', pageController.updatePage);
+
+// Text content routes (legacy support)
+router.get('/api/text/:pageId', mediaController.getTextByPageId);
+router.put('/api/text/:pageId', mediaController.updateTextByPageId);
+
+// Link routes
+router.get('/api/links', linkController.getAllLinks);
+router.get('/api/links/:menuId', linkController.getLinksByMenuId);
+router.post('/api/links', linkController.addLink);
+router.put('/api/links/:id', linkController.updateLink);
+router.delete('/api/links/label/:label', linkController.deleteLinkByLabel);
+
+// Media routes
+router.get('/api/media', mediaController.getAllMedia);
+router.post('/api/media', mediaController.addMedia);
+router.put('/api/media/:id', mediaController.updateMedia);
+router.delete('/api/media/:id', mediaController.deleteMedia);
+
+// Section routes
+router.get('/api/sections', sectionController.getAllSections);
+router.post('/api/sections', sectionController.addSection);
+router.put('/api/sections/:id', sectionController.updateSection);
+router.delete('/api/sections/:id', sectionController.deleteSection);
 
 module.exports = router;

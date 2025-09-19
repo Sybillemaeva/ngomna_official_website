@@ -61,7 +61,7 @@ class ApiService {
   }
 
   async updatePage(pageId, data) {
-    return this.request(`/${pageId}`, {
+    return this.request(`/pages/${pageId}`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
